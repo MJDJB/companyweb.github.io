@@ -1,0 +1,10 @@
+$(window).scroll(function(){
+	if($(document).scrollTop()>10){
+			$(".main_left").css({position:'fixed',top:'80px'})
+		}else{
+			$(".main_left").removeAttr("style");
+	}
+})
+if($(document).scrollTop()>10){
+	$(".main_left").css({position:'fixed',top:'80px'})
+}

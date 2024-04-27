@@ -1,0 +1,49 @@
+
+.index-title{text-align: center; margin-bottom: 28px;}
+.index-title h4{font-size: 24px; color: #000; letter-spacing: 5px; margin-bottom: 16px;}
+.index-title h6{font-size: 16px; color:#575757; letter-spacing: 2px;}
+.index-title h6 span{position:relative;}
+.index-title h6 span:before{position:absolute; display: block;content: '';width:36px;height:4px; left:-50px; top: 9px; background:linear-gradient(225deg,rgba(0,166,93,1) 0%,rgba(0,113,189,1) 100%);border-radius:2px;}
+.index-title h6 span:after{position:absolute; display: block;content: '';width:36px;height:4px; right:-50px; top: 9px; background:linear-gradient(225deg,rgba(0,166,93,1) 0%,rgba(0,113,189,1) 100%);border-radius:2px;}
+.index-platform .index-title{margin-bottom: 60px;}
+.index-platform .w{padding: 0 62px; box-sizing: border-box}
+.index-platform dl{width:350px;height:350px; cursor: pointer; position: relative; margin-top: 10px; margin-right: 9px; float: left; background:rgba(255,255,255,1);border-radius:4px;opacity:0.8271;border:1px solid rgba(239,239,239,1);}
+.index-platform dl:nth-child(3n){margin-right: 0px;}
+.index-platform dl dt{position: absolute; width: 100%;height: 100%; left: 0; top: 0px;}
+.index-platform dl dt .img{height: 180px; padding-top: 40px; display: flex;align-items: center;justify-content: center}
+.index-platform dl dt .img img{max-height: 100px; max-width:270px; }
+.index-platform dl dt .name{text-align: center; font-size: 20px;color: #000;letter-spacing: 2px;line-height: 30px;}
+.index-platform dl dt .name span{font-size: 26px;}
+.index-platform dl dd{position: absolute;width: 100%;height: 100%;left: 0;top: 0;background:linear-gradient(135deg,rgba(0,166,93,1) 0%,rgba(27,130,194,1) 100%);box-shadow:0px 0px 16px 4px rgba(195,218,226,0.5);border-radius:4px; transition: all 0.2s; opacity: 0; box-sizing: border-box;padding: 30px; display: flex;justify-content: center;flex-direction: column;}
+.index-platform dl dd .dd_name{font-size:22px; margin-bottom: 20px; font-weight:500;color:rgba(255,255,255,1);line-height:30px;letter-spacing:2px;}
+.index-platform dl dd .dd_con{font-size:14px;color:rgba(255,255,255,1); text-align: left; line-height:24px;letter-spacing:2px;}
+.index-platform dl dd .dd_name,.index-platform dl dd .dd_con{position: relative;top: 20px; transition: all 0.4s; opacity: 0}
+.index-platform dl dd .dd_name{transition: all 0.6s;}
+.index-platform dl dd .dd_con a{display: block;border: 1px solid #fff;width: 100px;height: 28px;text-align: center;line-height: 28px;color: #fff;border-radius: 4px;margin: 15px auto 0;}
+.index-platform dl:hover dd{opacity: 1;}
+.index-platform dl:hover dd .dd_name,.index-platform dl:hover dd .dd_con{top: 0; opacity: 1}
+.index-team{padding: 100px 0; background: url("../images/index_bg2.png") no-repeat center;}
+.index-team .index-title h4,.index-team .index-title h6{color: #fff;}
+.index-team .w{box-sizing: border-box;padding: 0 42px;}
+.index-team .w dl{float: left;width:316px;height:360px;background:linear-gradient(136deg,rgba(0,208,155,1) 0%,rgba(0,163,98,1) 100%);box-shadow:0px 0px 15px 0px rgba(10,27,44,0.5);border-radius:4px;opacity:0.8992;transition: all 0.2s; margin: 32px 28px 0; box-sizing: border-box;padding: 33px;}
+.index-team .w dl:nth-child(2){background:linear-gradient(136deg,rgba(0,173,220,1) 0%,rgba(0,117,182,1) 100%);}
+.index-team .w dl:nth-child(3){background:linear-gradient(136deg,rgba(233,167,167,1) 0%,rgba(206,110,110,1) 100%);}
+.index-team dl dt{width: 130px; height: 160px; display: block;margin: 0 auto;}
+.index-team dl dt img{width: 100%;}
+.index-team dd h4{font-size:22px; margin-bottom: 20px; color:rgba(255,255,255,1); text-align:center; line-height:44px;letter-spacing:3px;}
+.index-team dd h4 span{position: relative;}
+.index-team dd h4 span:before{display: block;content: ""; transition: all 0.5s; position: absolute; width:70px;height:2px;background:rgba(255,255,255,1);border-radius:2px;left: 50%;margin-left: -35px;bottom: -10px;}
+.index-team dd p{font-size:14px;text-align:center; color:rgba(255,255,255,1);line-height:24px;letter-spacing:2px;}
+.index-team dl:hover dd h4 span:before{width: 30px; margin-left: -15px;}
+.index-team dl:hover {transform: scale(1.02)}
+.index-genes{padding: 100px 0; background: url("../images/index_bg1.png") no-repeat center;}
+.index-genes .genes_item{width: 400px;float: left; margin-top: 32px; text-align: center;}
+.index-genes .genes_item img{height: 75px;}
+.index-genes .genes_item h4{font-size:22px; margin: 12px 0 8px; color:rgba(17,17,17,1);line-height:44px;letter-spacing:3px;}
+.index-genes .genes_item p{font-size:14px; margin: 0 auto; width: 325px; color:rgba(87,87,87,1);line-height:28px;}
+.index-mission{height:220px; width: 1200px; margin-left: auto;margin-right: auto; position: relative;z-index: 2; margin-top: -60px; background:rgba(255,255,255,1);box-shadow:0px 0px 24px 0px rgba(112,112,112,0.5);border-radius:2px; box-sizing: border-box;padding-top: 30px;}
+.index-mission .mission_item{float: left; width: 20%; text-align: center; position: relative;}
+.index-mission .mission_item:before{display: block;content: ""; position: absolute; width:1px;height:60px;background:#DEDEDE; right: -1px; top:20px;}
+.index-mission .mission_item:nth-last-child(1):before{display: none;}
+.index-mission .mission_item p{font-size:14px; color:#666;line-height:20px;letter-spacing:2px;}
+.index-mission .index-title{margin-bottom: 15px;}

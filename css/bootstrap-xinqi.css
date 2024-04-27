@@ -84,24 +84,14 @@ body{
 }
 
 /*HTML5 + bootstrap*/
-#html5{
-    background: #f8f8f8;
-}
-#html5 , #bootstrap{
-    padding: 80px 0;
-}
-#html5 h2 , #bootstrap h2{
-    font-weight: bold;
-}
-#html5 p  , #bootstrap p{
-    line-height: 25px;
-}
+
 
 /*course*/
 #course{
     background: #f8f8f8;
     padding: 80px 0;
     text-align: center;
+     background: url("../images/index_bg3.png") no-repeat;
 }
 #course h2{
     font-weight: bold;
