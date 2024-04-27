@@ -62,19 +62,25 @@
             <div class="containerDiv">
                 <div>
                     <span><img src="static/picture/home-pic5.png"></span>
-                    <h4>Innovation</h4>
+                    <div class="index-title">
+                        <h4>Innovation</h4>
+                    </div>
                     <p>Carry on the legacy of scientific and technical innovation, push yourself to your limits, and
                         fearlessly lead the way</p>
                 </div>
                 <div>
                     <span><img src="static/picture/home-pic4.png"></span>
-                    <h4>Accumulation</h4>
+                    <div class="index-title">
+                        <h4>Accumulation</h4>
+                    </div>
                     <p>advancing the financial technology development, </br> promoting the sector, </br>and achieving
                         notable successes;</p>
                 </div>
                 <div>
                     <span><img src="static/picture/home-pic5.png"></span>
-                    <h4>Team</h4>
+                    <div class="index-title">
+                        <h4>Team</h4>
+                    </div>
                     <p>Recruit top talent to unlock value and </br> intelligently shape the future;</p>
                 </div>
             </div>
@@ -232,45 +238,7 @@ $(function(){
 </script>
 
 <script type="text/javascript" src="http://hq.sinajs.cn/list=hk01263" charset="gb2312"></script>
-<script type="text/javascript">
-function formatNum(num,n)
-{
-	//参数说明：num 要格式化的数字 n 保留小数位
-	num = String(num.toFixed(n));
-	var re = /(-?\d+)(\d{3})/;
-	while(re.test(num)) num = num.replace(re,"$1,$2")
-	return num;
-}
 
-var elements = hq_str_hk01263.split(",");
-var today_open=elements[2];
-var today_new=elements[6];
-
-if (elements[2]=="0.000")
-{
-	today_open="--";
-}
-
-var change=formatNum(today_new-elements[3],3);
-var change_p=formatNum(change/elements[3]*100,3);
-
-$("#shijia").html(" 市價:" + today_new);
-/* document.write("股票英文："+elements[0]+"<br/>");
-document.write("股票名称："+elements[1]+"<br/>");
-document.write("今开盘："+today_open+"<br/>");
-document.write("昨收盘："+elements[3]+"<br/>");
-document.write("最新价："+today_new+"<br/>");
-document.write("升跌："+change+"<br/>");
-document.write("升跌%："+change_p+" %<br/>");
-document.write("成交价："+elements[10]+" HK$<br/>");
-document.write("成交量："+elements[12]+" 股<br/>");
-document.write("更新日期："+elements[17]+"<br/>");
-document.write("更新时间："+elements[18]+"<br/>"); */
-
-
-
-
-</script>
 <style>
  .containerDiv {
     display: flex;
