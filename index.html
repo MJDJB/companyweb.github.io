@@ -25,7 +25,7 @@
             <a href="" class="navbar-brand"><img alt="PC Partner Logo" width="200" height="70" src="images/xqb-logo.png"
                                                  style="margin-right:20px;"></a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div id="myDiv"  class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#home">Home page1</a></li>
                 <li><a href="#html5">About PowerX</a></li>
@@ -195,7 +195,7 @@
 
 <!--footer-->
 <footer>
-    <div class="container">
+    <div>
         <div class="row">
             <div class="col-md-12">
                 &copy;&nbsp;Copyright PowerX Group Limited. All Rights Reserved.
@@ -211,6 +211,22 @@
 <!--<script src="js/jquery.singlePageNav.min.js"></script>-->
 <script src="js/wow.min.js"></script>
 <script>
+    window.onload = function() {
+  // 获取所有的li元素
+  var liElements = document.querySelectorAll('div#myDiv li');
+
+  // 假设你想自动点击第一个li下的href
+  if (liElements.length > 0) {
+    // 获取第一个li元素的a标签
+    var firstLink = liElements[0].querySelector('a');
+
+    // 检查a标签是否存在并且href属性是否定义
+    if (firstLink && firstLink.href) {
+      // 模拟点击
+      firstLink.click();
+    }
+  }
+};
 $(function(){
 
     /*$('.nav').singlePageNav({
