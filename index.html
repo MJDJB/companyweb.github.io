@@ -13,6 +13,7 @@
 </head>
 <body>
 <nav class="navbar navbar-default">
+    <div class="containerApp">
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -201,6 +202,7 @@
         </div>
     </div>
 </footer>
+</div>
 <!--footer-->
 
 <script src="js/jquery.min.js"></script>
@@ -245,6 +247,22 @@ $(function(){
 .div-1 {
         background-color: #EBEBEB;
     }
+        /* 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .containerApp {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        /* 响应式布局 */
+        @media (min-width: 768px) {
+            .containerApp {
+                width: 750px;
+                margin: 0 auto;
+            }
+
 
 </style>
 </body>
