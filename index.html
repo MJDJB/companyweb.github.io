@@ -377,7 +377,7 @@
                     <!-- 功效列表將顯示在這裡 -->
                 </ul>
                 <a href="#" class="btn-buy" id="buy-button">立即請購 · 贈開光證書</a>
-                <p style="margin-top: 15px; font-size: 0.9em;">限量30件 · 大師親製加持</p>
+                <p style="margin-top: 15px; font-size: 0.9em;">限量30件</p>
             </div>
             <button id="returnBtn">✦ 返回 ✦</button>
         </div>
@@ -424,6 +424,147 @@
                     name: "水火既濟格",
                     desc: "水火平衡，運勢平和，需保持各元素的均衡"
                 }
+            ],
+            types: [
+                {
+                    id: "energy-booster",
+                    name: "Energy Booster",
+                    trait: "Lack of Fire/Earth Elements",
+                    personality: "Indecisive, easily tired, needs motivation",
+                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    product: {
+                        name: "Pure Cinnabar Bracelet",
+                        material: "Red Cinnabar + Red Agate",
+                        price: "\$17.77",
+                        benefits: [
+                        "Boosts vitality within 7 days",
+                        "Enhances decision-making confidence",
+                        "Ancient Chinese warrior's talisman"
+                        ],
+                        icon: "🔥"
+                    }
+                },
+                {
+                    id: "energy-booster",
+                    name: "Energy Booster",
+                    trait: "Lack of Fire/Earth Elements",
+                    personality: "Indecisive, easily tired, needs motivation",
+                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    product: {
+                        name: "Pure Cinnabar Bracelet",
+                        material: "Red Cinnabar + Red Agate",
+                        price: "\$17.77",
+                        benefits: [
+                        "Boosts vitality within 7 days",
+                        "Enhances decision-making confidence",
+                        "Ancient Chinese warrior's talisman"
+                        ],
+                        icon: "🔥"
+                    }
+                },
+                {
+                    id: "energy-booster",
+                    name: "Energy Booster",
+                    trait: "Lack of Fire/Earth Elements",
+                    personality: "Indecisive, easily tired, needs motivation",
+                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    product: {
+                        name: "Pure Cinnabar Bracelet",
+                        material: "Red Cinnabar + Red Agate",
+                        price: "\$17.77",
+                        benefits: [
+                        "Boosts vitality within 7 days",
+                        "Enhances decision-making confidence",
+                        "Ancient Chinese warrior's talisman"
+                        ],
+                        icon: "🔥"
+                    }
+                },
+                {
+                    id: "energy-booster",
+                    name: "Energy Booster",
+                    trait: "Lack of Fire/Earth Elements",
+                    personality: "Indecisive, easily tired, needs motivation",
+                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    product: {
+                        name: "Pure Cinnabar Bracelet",
+                        material: "Red Cinnabar + Red Agate",
+                        price: "\$17.77",
+                        benefits: [
+                        "Boosts vitality within 7 days",
+                        "Enhances decision-making confidence",
+                        "Ancient Chinese warrior's talisman"
+                        ],
+                        icon: "🔥"
+                    }
+                }
+                // 其他3种类型同理...
+            ],
+            destinytypes: [
+                {
+                    name: "Energy Booster (Fire/Earth Deficient)",
+                    desc: "Your energy analysis shows a lack of Fire/Earth elements. This causes low motivation and indecisiveness.",
+                    product: {
+                        id: "energy-bracelet",
+                        name: "Red Cinnabar Bracelet",
+                        price: "\$17.77",
+                        icon: "🔥",
+                        benefits: [
+                        "Boost vitality & confidence",
+                        "Ancient Chinese energy talisman",
+                        "Handcrafted with pure cinnabar"
+                        ],
+                        urgencyMsg: "23 people bought this today"
+                    }
+                },
+                {
+                    name: "Energy Booster (Fire/Earth Deficient)",
+                    desc: "Your energy analysis shows a lack of Fire/Earth elements. This causes low motivation and indecisiveness.",
+                    product: {
+                        id: "energy-bracelet",
+                        name: "Red Cinnabar Bracelet",
+                        price: "\$17.77",
+                        icon: "🔥",
+                        benefits: [
+                        "Boost vitality & confidence",
+                        "Ancient Chinese energy talisman",
+                        "Handcrafted with pure cinnabar"
+                        ],
+                        urgencyMsg: "23 people bought this today"
+                    }
+                },
+                {
+                    name: "Energy Booster (Fire/Earth Deficient)",
+                    desc: "Your energy analysis shows a lack of Fire/Earth elements. This causes low motivation and indecisiveness.",
+                    product: {
+                        id: "energy-bracelet",
+                        name: "Red Cinnabar Bracelet",
+                        price: "\$17.77",
+                        icon: "🔥",
+                        benefits: [
+                        "Boost vitality & confidence",
+                        "Ancient Chinese energy talisman",
+                        "Handcrafted with pure cinnabar"
+                        ],
+                        urgencyMsg: "23 people bought this today"
+                    }
+                },
+                {
+                    name: "Energy Booster (Fire/Earth Deficient)",
+                    desc: "Your energy analysis shows a lack of Fire/Earth elements. This causes low motivation and indecisiveness.",
+                    product: {
+                        id: "energy-bracelet",
+                        name: "Red Cinnabar Bracelet",
+                        price: "\$17.77",
+                        icon: "🔥",
+                        benefits: [
+                        "Boost vitality & confidence",
+                        "Ancient Chinese energy talisman",
+                        "Handcrafted with pure cinnabar"
+                        ],
+                        urgencyMsg: "23 people bought this today"
+                    }
+                }
             ]
         };
         // 獲取表單元素
@@ -434,25 +575,139 @@
         const resultContainer = document.getElementById('result');
         const formContainer = document.getElementById('form');
         // 計算按鈕點擊事件
-        document.getElementById('calculateBtn').addEventListener('click', () => {
-            // 簡單驗證
-            if (!birthdayInput.value || !birthtimeInput.value || !genderInput.value) {
-                alert('請填寫所有必填字段');
-                return;
-            }
-            // 模擬命理計算
-            const randomType = DESTINY_DATA.destinyTypes[Math.floor(Math.random() * DESTINY_DATA.destinyTypes.length)];
-            // 顯示結果
-            document.getElementById('destiny-type').textContent = randomType.name;
-            document.getElementById('fortune-analysis').textContent = randomType.desc;
-            resultContainer.style.display = 'block';
-            formContainer.style.display = 'none';
-        });
+        // document.getElementById('calculateBtnB').addEventListener('click', () => {
+        //     // 簡單驗證
+        //     if (!birthdayInput.value || !birthtimeInput.value || !genderInput.value) {
+        //         alert('請填寫所有必填字段');
+        //         return;
+        //     }
+        //     // 模擬命理計算
+        //     const randomType = DESTINY_DATA.destinyTypes[Math.floor(Math.random() * DESTINY_DATA.destinyTypes.length)];
+        //     // 顯示結果
+        //     document.getElementById('destiny-type').textContent = randomType.name;
+        //     document.getElementById('fortune-analysis').textContent = randomType.desc;
+        //     resultContainer.style.display = 'block';
+        //     formContainer.style.display = 'none';
+        // });
         // 返回按鈕點擊事件
         document.getElementById('returnBtn').addEventListener('click', () => {
             resultContainer.style.display = 'none';
             formContainer.style.display = 'block';
         });
+        
+        // 在<script>标签内替换为以下代码
+        document.getElementById('calculateBtn').addEventListener('click', () => {
+            const birthday = new Date(document.getElementById('birthday').value);
+            const gender = document.getElementById('gender').value;
+            
+            if (!birthday || !gender) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            // 核心计算逻辑
+            const destinyType = calculateDestinyType(birthday, gender);
+            showResult(destinyType);
+        });
+
+        // 五行能量计算函数
+        function calculateWood(year, month) {
+            return (year % 12) * 8 + month * 3; // 寅卯月木旺
+        }
+
+        function calculateFire(month, day) {
+            return (month >= 4 && month <= 6) ? 80 + day : 30 + day; // 夏季火旺
+        }
+
+        function calculateEarth(year, day) {
+            return (year % 10) * 5 + (day % 6) * 10; // 季末土旺
+        }
+
+        function calculateMetal(year, month) {
+            return (month >= 7 && month <= 9) ? 70 + (year % 5) * 6 : 40; // 秋季金旺
+        }
+
+        function calculateWater(month, day) {
+            return (month >= 10 || month <= 1) ? 90 - day : 50 - (day % 4) * 5; // 冬季水旺
+        }
+
+        // 命理类型判定算法
+        function determineType(elements, gender) {
+            const scores = {
+                wood: elements.wood,
+                fire: elements.fire,
+                earth: elements.earth,
+                metal: elements.metal,
+                water: elements.water
+            };
+
+            // 性别微调（阳刚/阴柔属性）
+            const genderModifier = gender === 'male' ? 1.2 : 0.8;
+            scores.fire *= genderModifier;
+            scores.water /= genderModifier;
+
+            // 类型判定规则
+            if (scores.fire < 50 && scores.earth < 50) {
+                return DESTINY_DATA.types[0]; // Energy Booster
+            } else if (scores.metal > 70 && scores.water > 70) {
+                return DESTINY_DATA.types[1]; // Calm Balancer
+            } else if (scores.wood > 65 && scores.fire < 60) {
+                return DESTINY_DATA.types[2]; // Action Igniter
+            } else {
+                return DESTINY_DATA.types[3]; // Grounding Protector
+            }
+        }
+
+        // 结果展示函数
+        function showResult(type) {
+            document.getElementById('destiny-type').textContent = type.name;
+            document.getElementById('fortune-analysis').innerHTML = `
+                <p><strong>Personality:</strong> ${type.personality}</p>
+                <p><strong>Compatible Zodiac:</strong> ${type.zodiac}</p>
+                <p><strong>Elemental Insight:</strong> ${type.trait}</p>
+            `;
+
+            // 更新产品推荐
+            const product = type.product;
+            document.getElementById('cinnabar-icon').textContent = product.icon;
+            document.getElementById('cinnabar-name').textContent = product.name;
+            document.getElementById('cinnabar-price').textContent = product.price;
+            
+            const benefitsList = product.benefits.map(b => `<li>${b}</li>`).join('');
+            document.getElementById('cinnabar-benefits').innerHTML = benefitsList;
+            
+            // 显示结果页
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('form').style.display = 'none';
+        }
+        function calculateDestinyType(birthDate, gender) {
+            // 1. 将生日转换为农历年份（简化版）
+            const year = birthDate.getFullYear();
+            const month = birthDate.getMonth() + 1;
+            const day = birthDate.getDate();
+            
+            // 2. 计算五行能量值（0-100）
+            const elements = {
+                wood: calculateWood(year, month),
+                fire: calculateFire(month, day),
+                earth: calculateEarth(year, day),
+                metal: calculateMetal(year, month),
+                water: calculateWater(month, day)
+            };
+            const woodBar = document.getElementById('wood-bar');
+            const waterBar = document.getElementById('water-bar');
+            const metalBar = document.getElementById('metal-bar');
+            const earthBar = document.getElementById('earth-bar');
+            const fireBar = document.getElementById('fire-bar');
+            woodBar.style.width = elements.wood + '%';
+            waterBar.style.width = elements.water + '%';
+            metalBar.style.width = elements.metal + '%';
+            earthBar.style.width = elements.earth + '%';
+            fireBar.style.width = elements.fire + '%';
+            
+            // 3. 根据五行相生相克确定命理类型
+            return determineType(elements, gender);
+        }
     </script>
 </body>
 </html>
