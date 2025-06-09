@@ -275,6 +275,45 @@
                 font-size: 1.8rem;
             }
         }
+        .challenge-options {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 10px;
+        }
+
+        .option-card {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: #fff;
+        }
+
+        .option-card .icon {
+            font-size: 1.8em;
+        }
+
+        .option-card:hover {
+            border-color: #d64c35;
+            background: #fff5f1;
+        }
+
+        .option-card.selected {
+            border-color: #d64c35;
+            background: #fff0e9;
+            box-shadow: 0 0 0 2px #d64c35 inset;
+        }
+
+        .option-card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -302,12 +341,12 @@
           </p>
         </div>
     
-        <div class="form-group">
+        <div class="form-group" id="first">
           <label for="birthday">Date of Birth</label>
           <input type="date" id="birthday" required inputmode="text" placeholder="Select a date" />
         </div>
     
-        <div class="form-group">
+        <div class="form-group" id="second">
           <label for="birthtime">Birth Time</label>
           <select id="birthtime" required inputmode="text">
             <option value="">Select a time</option>
@@ -326,7 +365,7 @@
           </select>
         </div>
     
-        <div class="form-group">
+        <div class="form-group" id="third">
           <label for="gender">Gender</label>
           <select id="gender" required>
             <option value="">Select a gender</option>
@@ -334,10 +373,44 @@
             <option value="female">Female</option>
           </select>
         </div>
+
+        <div class="form-group" id="step" style="display: none">
+            <label>What’s your biggest challenge lately?</label>
+            <div class="challenge-options" id="challenge-options">
+            <div class="option-card" data-type="energy-booster">
+                <div class="icon">🔋</div>
+                <div class="text">
+                <strong>Tired and unmotivated</strong>
+                <p>You often feel drained, foggy, and stuck.</p>
+                </div>
+            </div>
+            <div class="option-card" data-type="calm-balancer">
+                <div class="icon">🌊</div>
+                <div class="text">
+                <strong>Anxious or emotionally unstable</strong>
+                <p>Your thoughts race and your heart never rests.</p>
+                </div>
+            </div>
+            <div class="option-card" data-type="action-igniter">
+                <div class="icon">💭</div>
+                <div class="text">
+                <strong>Ideas but no action</strong>
+                <p>You dream a lot but struggle to begin.</p>
+                </div>
+            </div>
+            <div class="option-card" data-type="grounding-protector">
+                <div class="icon">🔥</div>
+                <div class="text">
+                <strong>Short-tempered or overwhelmed</strong>
+                <p>You react quickly and burn out even faster.</p>
+                </div>
+            </div>
+            </div>
+        </div>
     
         <button id="calculateBtn">✦ Begin My Reading ✦</button>
+        <button id="nextBtn" style="display: none">✦ Next ✦</button>
       </div>
-    
       <div class="result-container" id="result">
         <div class="destiny-type" id="destiny-type">Your Energy Type</div>
     
@@ -618,6 +691,9 @@
         const genderInput = document.getElementById('gender');
         const resultContainer = document.getElementById('result');
         const formContainer = document.getElementById('form');
+        let selectedTypeId = null;
+        let birthday = null;
+        let gender = null;
         // 計算按鈕點擊事件
         // document.getElementById('calculateBtnB').addEventListener('click', () => {
         //     // 簡單驗證
@@ -637,18 +713,54 @@
         document.getElementById('returnBtn').addEventListener('click', () => {
             resultContainer.style.display = 'none';
             formContainer.style.display = 'block';
+            document.getElementById('first').style.display = 'block';
+            document.getElementById('second').style.display = 'block';
+            document.getElementById('third').style.display = 'block';
+            document.getElementById('step').style.display = 'none';
+            document.getElementById('calculateBtn').style.display = 'block';
+            document.getElementById('nextBtn').style.display = 'none';
         });
         
         // 在<script>标签内替换为以下代码
         document.getElementById('calculateBtn').addEventListener('click', () => {
-            const birthday = new Date(document.getElementById('birthday').value);
-            const gender = document.getElementById('gender').value;
+            birthday = new Date(document.getElementById('birthday').value);
+            gender = document.getElementById('gender').value;
             
             if (!birthday || !gender) {
                 alert('Please fill all fields');
                 return;
             }
+            document.getElementById('first').style.display = 'none';
+            document.getElementById('second').style.display = 'none';
+            document.getElementById('third').style.display = 'none';
+            document.getElementById('step').style.display = 'block';
+            document.getElementById('calculateBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'block';
+        });
 
+        document.querySelectorAll(".option-card").forEach(card => {
+            card.addEventListener("click", () => {
+            // 清除已有选中状态
+            document.querySelectorAll(".option-card").forEach(c => c.classList.remove("selected"));
+            // 添加选中状态
+            card.classList.add("selected");
+            // 保存选中的类型ID
+            selectedTypeId = card.getAttribute("data-type");
+            });
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            if (!selectedTypeId) {
+            alert("Please select the option that best describes you.");
+            return;
+            }
+
+            // const typeData = DESTINY_DATA.types.find(t => t.id === selectedTypeId);
+            // if (typeData) {
+            // showResult(typeData);
+            // } else {
+            // alert("An error occurred. Please refresh and try again.");
+            // }
             // 核心计算逻辑
             const destinyType = calculateDestinyType(birthday, gender);
             showResult(destinyType);
