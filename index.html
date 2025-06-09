@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF - 8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天機命理閣 - 八字硃砂占卜系統</title>
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.1/lunar.js"></script>
+    <title>Tianji Metaphysics - BaZi & Cinnabar Energy Reading</title>
     <style>
         :root {
             --primary: #8B0000; /* 硃砂紅 */
@@ -277,111 +278,127 @@
     </style>
 </head>
 <body>
+
     <div class="container">
-        <header>
-            <div class="yin-yang"></div>
-            <!-- 添加八卦圖 -->
-            <div class="bagua">
-                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 100 100">
-                    <!-- 簡單的八卦圖案示例 -->
-                    <circle cx="50" cy="50" r="45" fill="#333" stroke="#DAA520" stroke-width="2"/>
-                    <path d="M50,10 v30 M50,60 v30 M20,50 h30 M70,50 h30" stroke="#DAA520" stroke-width="4"/>
-                </svg>
-            </div>
-            <h1>天機命理閣</h1>
-            <p>八字解析 · 五行調和 · 硃砂開運</p>
-        </header>
-        <div class="form-container" id="form">
-            <div class="metaphysics-intro">
-                <p>八字命理源於中國古代，通過出生年月日時推算人的命運和五行能量。五行相生相克，影響著人的福禍吉凶。</p>
-            </div>
-            <div class="form-group">
-                <label for="birthday">Date of Birth</label>
-                <input type="date" id="birthday" required inputmode="text" placeholder="Select a date">
-            </div>
-            <div class="form-group">
-                <label for="birthtime">Birth Time</label>
-                <select id="birthtime" required inputmode="text">
-                    <option value="">Select a time</option>
-                    <option value="0">Zi Hour (23:00-00:59)</option>
-                    <option value="1">Chou Hour (01:00-02:59)</option>
-                    <option value="2">Yin Hour (03:00-04:59)</option>
-                    <option value="3">Mao Hour (05:00-06:59)</option>
-                    <option value="4">Chen Hour (07:00-08:59)</option>
-                    <option value="5">Si Hour (09:00-10:59)</option>
-                    <option value="6">Wu Hour (11:00-12:59)</option>
-                    <option value="7">Wei Hour (13:00-14:59)</option>
-                    <option value="8">Shen Hour (15:00-16:59)</option>
-                    <option value="9">You Hour (17:00-18:59)</option>
-                    <option value="10">Xu Hour (19:00-20:59)</option>
-                    <option value="11">Hai Hour (21:00-22:59)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select id="gender" required>
-                    <option value="">Select a gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <button id="calculateBtn">✦ 開始測算 ✦</button>
+      <header>
+        <div class="yin-yang"></div>
+        <!-- Add Bagua Symbol -->
+        <div class="bagua">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 100 100">
+            <!-- Simple Bagua Graphic -->
+            <circle cx="50" cy="50" r="45" fill="#333" stroke="#DAA520" stroke-width="2" />
+            <path d="M50,10 v30 M50,60 v30 M20,50 h30 M70,50 h30" stroke="#DAA520" stroke-width="4" />
+          </svg>
         </div>
-        <div class="result-container" id="result">
-            <div class="destiny-type" id="destiny-type">命理分析結果</div>
-            <div class="bazi-display">
-                <div>
-                    <div class="bazi-pillar" id="year-pillar"></div>
-                    <div>年柱(祖基)</div>
-                </div>
-                <div>
-                    <div class="bazi-pillar" id="month-pillar"></div>
-                    <div>月柱(父母)</div>
-                </div>
-                <div>
-                    <div class="bazi-pillar" id="day-pillar"></div>
-                    <div>日柱(命主)</div>
-                </div>
-                <div>
-                    <div class="bazi-pillar" id="hour-pillar"></div>
-                    <div>時柱(子息)</div>
-                </div>
-            </div>
-            <div class="wuxing-title">五行能量分布</div>
-            <div class="wuxing-bars">
-                <div class="wuxing-bar">
-                    <div class="wuxing-fill wood" id="wood-bar" style="width: 0%">木</div>
-                </div>
-                <div class="wuxing-bar">
-                    <div class="wuxing-fill fire" id="fire-bar" style="width: 0%">火</div>
-                </div>
-                <div class="wuxing-bar">
-                    <div class="wuxing-fill earth" id="earth-bar" style="width: 0%">土</div>
-                </div>
-                <div class="wuxing-bar">
-                    <div class="wuxing-fill metal" id="metal-bar" style="width: 0%">金</div>
-                </div>
-                <div class="wuxing-bar">
-                    <div class="wuxing-fill water" id="water-bar" style="width: 0%">水</div>
-                </div>
-            </div>
-            <div class="analysis-content" id="fortune-analysis">
-                <!-- 命理分析內容將顯示在這裡 -->
-            </div>
-            <div class="cinnabar-card">
-                <div class="cinnabar-icon" id="cinnabar-icon">🔴</div>
-                <h3 class="cinnabar-name" id="cinnabar-name">開運硃砂祥物</h3>
-                <p>根據您的命理五行特製</p>
-                <div class="cinnabar-price" id="cinnabar-price">NT$ 1,880</div>
-                <ul class="cinnabar-benefits" id="cinnabar-benefits">
-                    <!-- 功效列表將顯示在這裡 -->
-                </ul>
-                <a href="#" class="btn-buy" id="buy-button">立即請購 · 贈開光證書</a>
-                <p style="margin-top: 15px; font-size: 0.9em;">限量30件</p>
-            </div>
-            <button id="returnBtn">✦ 返回 ✦</button>
+        <h1>Tianji Metaphysics</h1>
+        <p>BaZi Destiny Reading · Elemental Balance · Empowering Cinnabar Charms</p>
+      </header>
+    
+      <div class="form-container" id="form">
+        <div class="metaphysics-intro">
+          <p>
+            BaZi (Eight Characters) is an ancient Chinese metaphysical system that reveals your life path through your
+            birth date and time. It reflects how the Five Elements (Wood, Fire, Earth, Metal, Water) influence your destiny.
+          </p>
         </div>
+    
+        <div class="form-group">
+          <label for="birthday">Date of Birth</label>
+          <input type="date" id="birthday" required inputmode="text" placeholder="Select a date" />
+        </div>
+    
+        <div class="form-group">
+          <label for="birthtime">Birth Time</label>
+          <select id="birthtime" required inputmode="text">
+            <option value="">Select a time</option>
+            <option value="0">Zi Hour (11:00 PM – 12:59 AM)</option>
+            <option value="1">Chou Hour (1:00 AM – 2:59 AM)</option>
+            <option value="2">Yin Hour (3:00 AM – 4:59 AM)</option>
+            <option value="3">Mao Hour (5:00 AM – 6:59 AM)</option>
+            <option value="4">Chen Hour (7:00 AM – 8:59 AM)</option>
+            <option value="5">Si Hour (9:00 AM – 10:59 AM)</option>
+            <option value="6">Wu Hour (11:00 AM – 12:59 PM)</option>
+            <option value="7">Wei Hour (1:00 PM – 2:59 PM)</option>
+            <option value="8">Shen Hour (3:00 PM – 4:59 PM)</option>
+            <option value="9">You Hour (5:00 PM – 6:59 PM)</option>
+            <option value="10">Xu Hour (7:00 PM – 8:59 PM)</option>
+            <option value="11">Hai Hour (9:00 PM – 10:59 PM)</option>
+          </select>
+        </div>
+    
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" required>
+            <option value="">Select a gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+    
+        <button id="calculateBtn">✦ Begin My Reading ✦</button>
+      </div>
+    
+      <div class="result-container" id="result">
+        <div class="destiny-type" id="destiny-type">Your Energy Type</div>
+    
+        <div class="bazi-display">
+          <div>
+            <div class="bazi-pillar" id="year-pillar"></div>
+            <div>Year Pillar (Ancestry)</div>
+          </div>
+          <div>
+            <div class="bazi-pillar" id="month-pillar"></div>
+            <div>Month Pillar (Parents)</div>
+          </div>
+          <div>
+            <div class="bazi-pillar" id="day-pillar"></div>
+            <div>Day Pillar (Self)</div>
+          </div>
+          <div>
+            <div class="bazi-pillar" id="hour-pillar"></div>
+            <div>Hour Pillar (Children)</div>
+          </div>
+        </div>
+    
+        <div class="wuxing-title">Your Five Element Energy Distribution</div>
+        <div class="wuxing-bars">
+          <div class="wuxing-bar">
+            <div class="wuxing-fill wood" id="wood-bar" style="width: 0%">Wood</div>
+          </div>
+          <div class="wuxing-bar">
+            <div class="wuxing-fill fire" id="fire-bar" style="width: 0%">Fire</div>
+          </div>
+          <div class="wuxing-bar">
+            <div class="wuxing-fill earth" id="earth-bar" style="width: 0%">Earth</div>
+          </div>
+          <div class="wuxing-bar">
+            <div class="wuxing-fill metal" id="metal-bar" style="width: 0%">Metal</div>
+          </div>
+          <div class="wuxing-bar">
+            <div class="wuxing-fill water" id="water-bar" style="width: 0%">Water</div>
+          </div>
+        </div>
+    
+        <div class="analysis-content" id="fortune-analysis">
+          <!-- Energy analysis will appear here -->
+        </div>
+    
+        <div class="cinnabar-card">
+          <div class="cinnabar-icon" id="cinnabar-icon">🔴</div>
+          <h3 class="cinnabar-name" id="cinnabar-name">Recommended Cinnabar Talisman</h3>
+          <p>Crafted based on your elemental profile</p>
+          <div class="cinnabar-price" id="cinnabar-price">$27.00</div>
+          <ul class="cinnabar-benefits" id="cinnabar-benefits">
+            <!-- Product benefits will appear here -->
+          </ul>
+          <a href="#" class="btn-buy" id="buy-button">Order Now</a>
+          <p style="margin-top: 15px; font-size: 0.9em;">Limited to 30 pieces</p>
+        </div>
+    
+        <button id="returnBtn">✦ Go Back ✦</button>
+      </div>
     </div>
+    
     <script>
         // ====== 中國傳統命理數據庫 ======
         const DESTINY_DATA = {
@@ -429,76 +446,103 @@
                 {
                     id: "energy-booster",
                     name: "Energy Booster",
-                    trait: "Lack of Fire/Earth Elements",
-                    personality: "Indecisive, easily tired, needs motivation",
-                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    trait: "Low Fire and Earth energy",
+                    personality:
+                    "Easily fatigued, mentally foggy, struggles with motivation and long-term planning.",
+                    zodiac: "Emotionally driven like Water signs (Pisces, Cancer, Scorpio)",
+                    explanation:
+                    "Your birth energy shows a deficiency in Fire and Earth elements, which are responsible for drive, structure, and grounded action. You may often feel drained, indecisive, or stuck in your thoughts. Strengthening your inner fire is key to reigniting your passion and reclaiming direction.",
                     product: {
-                        name: "Pure Cinnabar Bracelet",
-                        material: "Red Cinnabar + Red Agate",
-                        price: "\$17.77",
-                        benefits: [
-                        "Boosts vitality within 7 days",
-                        "Enhances decision-making confidence",
-                        "Ancient Chinese warrior's talisman"
-                        ],
-                        icon: "🔥"
+                    name: "Red Cinnabar Power Bracelet",
+                    material: "Natural Red Cinnabar + Energized Red Agate Beads",
+                    price: "$17.77",
+                    benefits: [
+                        "Revives inner energy flow within 7 days",
+                        "Improves motivation and decision clarity",
+                        "Traditionally worn by generals and Taoist priests for protection and courage",
+                        "Red agate helps anchor thoughts into action",
+                        "Cleansed & charged during full moon rituals"
+                    ],
+                    icon: "🔥",
+                    callToAction: "Activate Your Fire Energy",
+                    badge: "Best for burnout, fatigue & emotional fog"
                     }
                 },
                 {
-                    id: "energy-booster",
-                    name: "Energy Booster",
-                    trait: "Lack of Fire/Earth Elements",
-                    personality: "Indecisive, easily tired, needs motivation",
-                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    id: "calm-balancer",
+                    name: "Calm Balancer",
+                    trait: "Excess Water and Metal energy",
+                    personality:
+                    "Highly sensitive, anxious, prone to overthinking and insomnia. Emotionally reactive and easily overwhelmed.",
+                    zodiac: "Like Air signs with emotional depth (Gemini, Libra, Aquarius)",
+                    explanation:
+                    "Your chart reveals overactive Water and Metal elements. This causes emotional turbulence, difficulty sleeping, and mental over-processing. You absorb energy from others too easily, and need grounding tools to stabilize your emotions.",
                     product: {
-                        name: "Pure Cinnabar Bracelet",
-                        material: "Red Cinnabar + Red Agate",
-                        price: "\$17.77",
-                        benefits: [
-                        "Boosts vitality within 7 days",
-                        "Enhances decision-making confidence",
-                        "Ancient Chinese warrior's talisman"
-                        ],
-                        icon: "🔥"
+                    name: "Cinnabar & Obsidian Peace Pendant",
+                    material: "Polished Black Obsidian + Red Cinnabar Core",
+                    price: "$28.88",
+                    benefits: [
+                        "Shields your aura from negative emotional energy",
+                        "Promotes inner peace and deeper sleep",
+                        "Balances the heart-mind connection",
+                        "Cinnabar calms nervous energy and overactivity",
+                        "Obsidian clears absorbed emotional toxins"
+                    ],
+                    icon: "💧",
+                    callToAction: "Find My Inner Balance",
+                    badge: "Best for anxiety, emotional empaths & deep sleepers"
                     }
                 },
                 {
-                    id: "energy-booster",
-                    name: "Energy Booster",
-                    trait: "Lack of Fire/Earth Elements",
-                    personality: "Indecisive, easily tired, needs motivation",
-                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    id: "action-igniter",
+                    name: "Action Igniter",
+                    trait: "Strong Wood, deficient Fire",
+                    personality:
+                    "Creative thinker, full of ideas but lacks follow-through. Easily distracted, struggles with self-discipline.",
+                    zodiac: "Like Fire signs in shadow (Leo, Aries, Sagittarius)",
+                    explanation:
+                    "You have strong generative (Wood) energy, but weak transformation (Fire) energy. This means you're constantly inspired, but rarely able to convert plans into results. Restoring your inner fire is crucial for execution and forward motion.",
                     product: {
-                        name: "Pure Cinnabar Bracelet",
-                        material: "Red Cinnabar + Red Agate",
-                        price: "\$17.77",
-                        benefits: [
-                        "Boosts vitality within 7 days",
-                        "Enhances decision-making confidence",
-                        "Ancient Chinese warrior's talisman"
-                        ],
-                        icon: "🔥"
+                    name: "Cinnabar & Brass Focus Beads",
+                    material: "Real Cinnabar, Antiqued Brass + Action Sigils",
+                    price: "$32.22",
+                    benefits: [
+                        "Ignites your execution power and decisiveness",
+                        "Channels mental energy into physical action",
+                        "Worn by entrepreneurs for clarity and momentum",
+                        "Brass amplifies solar (yang) fire intention",
+                        "Cinnabar protects against mental self-sabotage"
+                    ],
+                    icon: "⚡",
+                    callToAction: "Boost My Action Energy",
+                    badge: "Best for creatives, procrastinators & overthinkers"
                     }
                 },
                 {
-                    id: "energy-booster",
-                    name: "Energy Booster",
-                    trait: "Lack of Fire/Earth Elements",
-                    personality: "Indecisive, easily tired, needs motivation",
-                    zodiac: "Like Water Signs (Pisces, Cancer, Scorpio)",
+                    id: "grounding-protector",
+                    name: "Grounding Protector",
+                    trait: "Excess Fire and Earth energy",
+                    personality:
+                    "Irritable, quick-tempered, often feels mentally overloaded or spiritually agitated. Tends to burn out quickly.",
+                    zodiac: "Fiery and dominant like Aries, Taurus, or Capricorn",
+                    explanation:
+                    "You possess powerful Fire and Earth energy — but in excess, it can cause emotional volatility, short temper, and energetic blockages. You need purification and clarity to protect your spiritual space and calm inner heat.",
                     product: {
-                        name: "Pure Cinnabar Bracelet",
-                        material: "Red Cinnabar + Red Agate",
-                        price: "\$17.77",
-                        benefits: [
-                        "Boosts vitality within 7 days",
-                        "Enhances decision-making confidence",
-                        "Ancient Chinese warrior's talisman"
-                        ],
-                        icon: "🔥"
+                    name: "White Quartz & Cinnabar Protection Ring",
+                    material: "Polished White Quartz + Sacred Cinnabar Core",
+                    price: "$27.00",
+                    benefits: [
+                        "Reduces irritability and restores mental calm",
+                        "Blocks toxic emotional energies and overexertion",
+                        "Enhances spiritual clarity and self-composure",
+                        "White Quartz purifies fire overflows and mental static",
+                        "Cinnabar provides grounding in high-pressure environments"
+                    ],
+                    icon: "🌍",
+                    callToAction: "Restore My Inner Peace",
+                    badge: "Best for overworked minds & emotional protection"
                     }
                 }
-                // 其他3种类型同理...
             ],
             destinytypes: [
                 {
@@ -658,34 +702,93 @@
             }
         }
 
-        // 结果展示函数
+        // 结果展示函数// Enhanced result rendering function
         function showResult(type) {
+            // 基本信息展示
             document.getElementById('destiny-type').textContent = type.name;
+
+            // 分析部分构建
             document.getElementById('fortune-analysis').innerHTML = `
-                <p><strong>Personality:</strong> ${type.personality}</p>
-                <p><strong>Compatible Zodiac:</strong> ${type.zodiac}</p>
-                <p><strong>Elemental Insight:</strong> ${type.trait}</p>
+                <p><strong>🔮 Type Explanation:</strong><br> ${type.explanation}</p>
+                <p><strong>🧠 Personality Traits:</strong> ${type.personality}</p>
+                <p><strong>♻️ Elemental Insight:</strong> ${type.trait}</p>
+                <p><strong>✨ Compatible Zodiac:</strong> ${type.zodiac}</p>
             `;
 
-            // 更新产品推荐
+            // 产品部分构建
             const product = type.product;
+
             document.getElementById('cinnabar-icon').textContent = product.icon;
             document.getElementById('cinnabar-name').textContent = product.name;
             document.getElementById('cinnabar-price').textContent = product.price;
-            
-            const benefitsList = product.benefits.map(b => `<li>${b}</li>`).join('');
-            document.getElementById('cinnabar-benefits').innerHTML = benefitsList;
-            
-            // 显示结果页
+
+            // 加入 badge 标签（如“Best for anxiety”等）
+            const badgeHTML = product.badge
+                ? `<div class="product-badge">⭐ ${product.badge}</div>`
+                : '';
+
+            // 展示好处列表
+            const benefitsList = product.benefits.map(
+                (b) => `<li>🔸 ${b}</li>`
+            ).join('');
+
+            document.getElementById('cinnabar-benefits').innerHTML = `
+                ${badgeHTML}
+                <ul class="benefit-list">${benefitsList}</ul>
+            `;
+
+            // CTA 按钮文字更新
+            const ctaButton = document.getElementById('cta-button');
+            if (ctaButton) {
+                ctaButton.textContent = product.callToAction || 'Learn More';
+                ctaButton.style.display = 'inline-block';
+            }
+
+            // 显示/隐藏界面
             document.getElementById('result').style.display = 'block';
             document.getElementById('form').style.display = 'none';
+
+            // 可选：滚动到结果位置
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // function showResult(type) {
+        //     document.getElementById('destiny-type').textContent = type.name;
+        //     document.getElementById('fortune-analysis').innerHTML = `
+        //         <p><strong>Personality:</strong> ${type.personality}</p>
+        //         <p><strong>Compatible Zodiac:</strong> ${type.zodiac}</p>
+        //         <p><strong>Elemental Insight:</strong> ${type.trait}</p>
+        //     `;
+
+        //     // 更新产品推荐
+        //     const product = type.product;
+        //     document.getElementById('cinnabar-icon').textContent = product.icon;
+        //     document.getElementById('cinnabar-name').textContent = product.name;
+        //     document.getElementById('cinnabar-price').textContent = product.price;
+            
+        //     const benefitsList = product.benefits.map(b => `<li>${b}</li>`).join('');
+        //     document.getElementById('cinnabar-benefits').innerHTML = benefitsList;
+            
+        //     // 显示结果页
+        //     document.getElementById('result').style.display = 'block';
+        //     document.getElementById('form').style.display = 'none';
+        // }
         function calculateDestinyType(birthDate, gender) {
             // 1. 将生日转换为农历年份（简化版）
-            const year = birthDate.getFullYear();
-            const month = birthDate.getMonth() + 1;
-            const day = birthDate.getDate();
-            
+            let year = birthDate.getFullYear();
+            let month = birthDate.getMonth() + 1;
+            let day = birthDate.getDate();
+            debugger;
+            try {
+                // const result = solarlunar.solar2lunar(year, month, day);
+                const solar = Solar.fromYmd(year, month, day);
+                const lunar = solar.getLunar();
+                year = lunar.getYear(); // 农历年份
+                month = lunar.getMonth(); // 农历月份
+                day = lunar.getDay; // 农历日期
+            } catch (error) {
+                alert('Invalid date format. Please try again.');
+            }
             // 2. 计算五行能量值（0-100）
             const elements = {
                 wood: calculateWood(year, month),
