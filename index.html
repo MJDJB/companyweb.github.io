@@ -422,28 +422,18 @@
         <div class="form-group" id="first">
             <label for="birthday">Date of Birth</label>
             <input type="date" id="birthday" required min="1900-01-01" placeholder=" ">
-          
-          </div>
-               
-    
-        <div class="form-group" id="second">
-          <label for="birthtime">Birth Time</label>
-          <select id="birthtime" required inputmode="text">
-            <option value="">Select a time</option>
-            <option value="0">Zi Hour (11:00 PM – 12:59 AM)</option>
-            <option value="1">Chou Hour (1:00 AM – 2:59 AM)</option>
-            <option value="2">Yin Hour (3:00 AM – 4:59 AM)</option>
-            <option value="3">Mao Hour (5:00 AM – 6:59 AM)</option>
-            <option value="4">Chen Hour (7:00 AM – 8:59 AM)</option>
-            <option value="5">Si Hour (9:00 AM – 10:59 AM)</option>
-            <option value="6">Wu Hour (11:00 AM – 12:59 PM)</option>
-            <option value="7">Wei Hour (1:00 PM – 2:59 PM)</option>
-            <option value="8">Shen Hour (3:00 PM – 4:59 PM)</option>
-            <option value="9">You Hour (5:00 PM – 6:59 PM)</option>
-            <option value="10">Xu Hour (7:00 PM – 8:59 PM)</option>
-            <option value="11">Hai Hour (9:00 PM – 10:59 PM)</option>
-          </select>
+            <span class="date-format-hint">Format: MM/DD/YYYY</span>
         </div>
+               
+        <div class="form-group" id="second">
+            <label for="birthtime">Birth Time</label>
+            <select id="birthtime" required>
+                <option value="">Select a time period</option>
+                <option value="morning">Morning (5:00 AM – 12:59 PM)</option>
+                <option value="afternoon">Afternoon (1:00 PM – 6:59 PM)</option>
+                <option value="evening">Evening/Night (7:00 PM – 4:59 AM)</option>
+            </select>
+        </div>          
     
         <div class="form-group" id="third">
           <label for="gender">Gender</label>
@@ -791,6 +781,7 @@
         const formContainer = document.getElementById('form');
         let selectedTypeId = null;
         let birthday = null;
+        let birthtime = null;
         let gender = null;
         // 計算按鈕點擊事件
         // document.getElementById('calculateBtnB').addEventListener('click', () => {
@@ -822,9 +813,10 @@
         // 在<script>标签内替换为以下代码
         document.getElementById('calculateBtn').addEventListener('click', () => {
             birthday = new Date(document.getElementById('birthday').value);
+            birthtime = new Date(document.getElementById('birthtime').value);
             gender = document.getElementById('gender').value;
             
-            if (!birthday || !gender) {
+            if (!birthday || !gender || !birthtime) {
                 alert('Please fill all fields');
                 return;
             }
@@ -860,33 +852,82 @@
             // alert("An error occurred. Please refresh and try again.");
             // }
             // 核心计算逻辑
-            const destinyType = calculateDestinyType(birthday, gender);
+            const destinyType = calculateDestinyType(birthday, gender, selectedTypeId);
             showResult(destinyType);
         });
 
         // 五行能量计算函数
-        function calculateWood(year, month) {
-            return (year % 12) * 8 + month * 3; // 寅卯月木旺
+        function calculateWood(year, month, selectedTypeId, birthtime) {
+            let value = (month >= 1 && month <= 3 ? 40 : 15) + (year % 10) * 2 + 20;
+
+            if (selectedTypeId === 'energy-booster') value += 5;
+            if (selectedTypeId === 'grounding-protector') value -= 5;
+
+            if (birthtime === 'morning') value += 5;
+            if (birthtime === 'evening') value -= 3;
+
+            return Math.max(10, value);
         }
 
-        function calculateFire(month, day) {
-            return (month >= 4 && month <= 6) ? 80 + day : 30 + day; // 夏季火旺
+        function calculateFire(month, day, selectedTypeId, birthtime) {
+            let value = (month >= 4 && month <= 6 ? 50 : 20) + (day % 30) * 1.2;
+
+            if (selectedTypeId === 'energy-booster') value += 10;
+            if (selectedTypeId === 'action-igniter') value += 8;
+            if (selectedTypeId === 'grounding-protector') value -= 10;
+
+            if (birthtime === 'morning') value += 6;
+            if (birthtime === 'evening') value -= 6;
+
+            return Math.max(10, value);
         }
 
-        function calculateEarth(year, day) {
-            return (year % 10) * 5 + (day % 6) * 10; // 季末土旺
+        function calculateEarth(year, day, selectedTypeId, birthtime) {
+            const isSeasonEnd = [3, 6, 9, 12].includes(new Date(year, 0, 1).getMonth() + 1);
+            let value = (isSeasonEnd ? 45 : 30) + (year % 12) * 1.5 + (day % 6) * 4;
+
+            if (selectedTypeId === 'grounding-protector') value += 8;
+            if (selectedTypeId === 'calm-balancer') value += 5;
+
+            if (birthtime === 'afternoon') value += 5;
+
+            return Math.max(10, value);
         }
 
-        function calculateMetal(year, month) {
-            return (month >= 7 && month <= 9) ? 70 + (year % 5) * 6 : 40; // 秋季金旺
+        function calculateMetal(year, month, selectedTypeId, birthtime) {
+            let value = (month >= 7 && month <= 9 ? 55 : 25) + ((year % 5) + 1) * 5;
+
+            if (selectedTypeId === 'calm-balancer') value += 10;
+
+            if (birthtime === 'afternoon') value += 4;
+            if (birthtime === 'evening') value += 5;
+
+            return Math.max(10, value);
         }
 
-        function calculateWater(month, day) {
-            return (month >= 10 || month <= 1) ? 90 - day : 50 - (day % 4) * 5; // 冬季水旺
+        function calculateWater(month, day, selectedTypeId, birthtime) {
+            const inWinter = (month >= 10 || month === 1);
+            let value = (inWinter ? 60 : 35) + (30 - day) * 0.8;
+
+            if (selectedTypeId === 'calm-balancer') value += 8;
+            if (selectedTypeId === 'action-igniter') value -= 5;
+            if (selectedTypeId === 'grounding-protector') value -= 3;
+
+            if (birthtime === 'evening') value += 6;
+            if (birthtime === 'morning') value -= 3;
+
+            return Math.max(10, value);
         }
 
         // 命理类型判定算法
-        function determineType(elements, gender) {
+        function determineType(elements, gender, selectedTypeId = null, birthtime = null) {
+            const types = DESTINY_DATA.types;
+
+            // 用户已手动选择心境类型，直接返回
+            if (selectedTypeId && types.some(type => type.id === selectedTypeId)) {
+                return types.find(type => type.id === selectedTypeId);
+            }
+
             const scores = {
                 wood: elements.wood,
                 fire: elements.fire,
@@ -900,15 +941,27 @@
             scores.fire *= genderModifier;
             scores.water /= genderModifier;
 
-            // 类型判定规则
+            // ➕ 出生时间影响五行倾向（阴阳影响）
+            if (birthtime === 'morning') {
+                scores.fire += 5;
+                scores.wood += 5;
+            } else if (birthtime === 'afternoon') {
+                scores.earth += 5; // 平衡之时，增强中土
+            } else if (birthtime === 'evening') {
+                scores.water += 6;
+                scores.metal += 4;
+                scores.fire -= 4; // 晚上火衰
+            }
+
+            // 命理推理逻辑
             if (scores.fire < 50 && scores.earth < 50) {
-                return DESTINY_DATA.types[0]; // Energy Booster
+                return types.find(type => type.id === "energy-booster");
             } else if (scores.metal > 70 && scores.water > 70) {
-                return DESTINY_DATA.types[1]; // Calm Balancer
+                return types.find(type => type.id === "calm-balancer");
             } else if (scores.wood > 65 && scores.fire < 60) {
-                return DESTINY_DATA.types[2]; // Action Igniter
+                return types.find(type => type.id === "action-igniter");
             } else {
-                return DESTINY_DATA.types[3]; // Grounding Protector
+                return types.find(type => type.id === "grounding-protector");
             }
         }
 
@@ -983,7 +1036,8 @@
         //     document.getElementById('result').style.display = 'block';
         //     document.getElementById('form').style.display = 'none';
         // }
-        function calculateDestinyType(birthDate, gender) {
+        function calculateDestinyType(birthDate, gender, selectedTypeId) {
+            debugger;
             // 1. 将生日转换为农历年份（简化版）
             let year = birthDate.getFullYear();
             let month = birthDate.getMonth() + 1;
@@ -995,17 +1049,17 @@
                 const lunar = solar.getLunar();
                 year = lunar.getYear(); // 农历年份
                 month = lunar.getMonth(); // 农历月份
-                day = lunar.getDay; // 农历日期
+                day = lunar.getDay(); // 农历日期
             } catch (error) {
                 alert('Invalid date format. Please try again.');
             }
             // 2. 计算五行能量值（0-100）
             const elements = {
-                wood: calculateWood(year, month),
-                fire: calculateFire(month, day),
-                earth: calculateEarth(year, day),
-                metal: calculateMetal(year, month),
-                water: calculateWater(month, day)
+                wood: calculateWood(year, month, selectedTypeId),
+                fire: calculateFire(month, day, selectedTypeId),
+                earth: calculateEarth(year, day, selectedTypeId),
+                metal: calculateMetal(year, month, selectedTypeId),
+                water: calculateWater(month, day, selectedTypeId)
             };
             const woodBar = document.getElementById('wood-bar');
             const waterBar = document.getElementById('water-bar');
