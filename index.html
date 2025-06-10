@@ -331,6 +331,67 @@
     }
   }
   /* ▲▲▲ 插入结束 ▲▲▲ */
+  <style>
+    /* 原有样式保持不变... */
+
+    /* ▼▼▼ 添加日期输入框优化样式 ▼▼▼ */
+    #birthday {
+        -webkit-appearance: none;
+        min-height: 48px;
+        padding: 12px 15px;
+        color: var(--text);
+        background: rgba(255, 248, 240, 0.8) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238B0000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") no-repeat right 15px center;
+        background-size: 20px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+    }
+
+    .date-format-hint {
+        display: block;
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    #birthday::-webkit-calendar-picker-indicator {
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    #birthday::before {
+        content: "Select your birth date (MM/DD/YYYY)";
+        color: #888;
+        position: absolute;
+    }
+
+    #birthday:focus::before,
+    #birthday:valid::before {
+        display: none;
+    }
+
+    @supports (-moz-appearance:none) {
+        #birthday {
+            background-image: none;
+            padding-right: 15px;
+        }
+        #birthday:invalid {
+            box-shadow: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #birthday {
+            font-size: 16px;
+            padding: 15px;
+            background-position: right 10px center;
+        }
+    }
+    /* ▲▲▲ 日期输入框优化结束 ▲▲▲ */
     </style>
 </head>
 <body>
@@ -359,9 +420,11 @@
         </div>
     
         <div class="form-group" id="first">
-          <label for="birthday">Date of Birth</label>
-          <input type="date" id="birthday" required inputmode="text" placeholder="Select a date" />
-        </div>
+            <label for="birthday">Date of Birth</label>
+            <input type="date" id="birthday" required min="1900-01-01" placeholder=" ">
+          
+          </div>
+               
     
         <div class="form-group" id="second">
           <label for="birthtime">Birth Time</label>
@@ -490,6 +553,24 @@
     </div>
     
     <script>
+        //日期校验
+    // 设置动态日期范围（添加在脚本最前面）
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        
+        document.getElementById('birthday').max = `${yyyy}-${mm}-${dd}`;
+        
+        // 设置默认值为30年前
+        const defaultDate = new Date();
+        defaultDate.setFullYear(yyyy - 30);
+        document.getElementById('birthday').valueAsDate = defaultDate;
+    });
+
+    // 原有脚本内容保持不变...
+
         // ====== 中國傳統命理數據庫 ======
         const DESTINY_DATA = {
             // 五行對應關係
