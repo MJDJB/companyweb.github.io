@@ -314,6 +314,23 @@
             font-size: 0.9em;
             color: #555;
         }
+/* ▼▼▼ 在这里插入优化代码 ▼▼▼ */
+  .challenge-options {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .option-card {
+    min-height: 80px;
+    padding: 15px;
+  }
+  @media (max-width: 480px) {
+    .option-card {
+      min-height: auto;
+      padding: 12px;
+    }
+  }
+  /* ▲▲▲ 插入结束 ▲▲▲ */
     </style>
 </head>
 <body>
