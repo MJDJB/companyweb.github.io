@@ -5,6 +5,8 @@
     <meta charset="UTF - 8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.1/lunar.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <title>Tianji Metaphysics - BaZi & Cinnabar Energy Reading</title>
     <style>
         :root {
@@ -331,37 +333,54 @@
     }
   }
   /* ▲▲▲ 插入结束 ▲▲▲ */
-  <style>
     /* 原有样式保持不变... */
 
     /* ▼▼▼ 添加日期输入框优化样式 ▼▼▼ */
-    #birthday {
-        -webkit-appearance: none;
-        min-height: 48px;
-        padding: 12px 15px;
-        color: var(--text);
-        background: rgba(255, 248, 240, 0.8) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238B0000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") no-repeat right 15px center;
-        background-size: 20px;
-        cursor: pointer;
-        font-family: Arial, sans-serif;
-    }
+    .date-input-container {
+    position: relative;
+}
 
-    .date-format-hint {
-        display: block;
-        font-size: 0.8rem;
-        color: #666;
-        margin-top: 5px;
-        font-style: italic;
-    }
+.birthday-input {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255, 248, 240, 0.8);
+    border: 1px solid var(--secondary);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238B0000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    padding-right: 40px;
+}
 
-    #birthday::-webkit-calendar-picker-indicator {
-        opacity: 0;
-        position: absolute;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-    }
+/* 移除旧的日期输入框样式 */
+#birthday {
+    -webkit-appearance: none;
+    min-height: 48px;
+    padding: 12px 15px;
+    color: var(--text);
+    background: rgba(255, 248, 240, 0.8);
+    font-family: Arial, sans-serif;
+    /* 新增：为原生图标留出空间 */
+    padding-right: 40px;
+}
+
+#birthday::-webkit-calendar-picker-indicator {
+    opacity: 1; /* 恢复默认可见性 */
+    position: relative; /* 取消绝对定位 */
+    width: 20px; /* 固定宽度 */
+    height: 20px; /* 固定高度 */
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    /* 移除以下属性 */
+    /* position: absolute; */
+    /* width: 100%; */
+    /* height: 100%; */
+}
 
     #birthday::before {
         content: "Select your birth date (MM/DD/YYYY)";
@@ -421,9 +440,14 @@
     
         <div class="form-group" id="first">
             <label for="birthday">Date of Birth</label>
-            <input type="date" id="birthday" required min="1900-01-01" placeholder=" ">
+            <!-- 替换原来的input type="date"为以下结构 -->
+            <div class="date-input-container">
+                <input type="text" id="birthday" class="birthday-input" placeholder="Select date" readonly>
+                <input type="hidden" id="birthday-native" required>
+            </div>
             <span class="date-format-hint">Format: MM/DD/YYYY</span>
         </div>
+        
                
         <div class="form-group" id="second">
             <label for="birthtime">Birth Time</label>
@@ -558,6 +582,44 @@
         defaultDate.setFullYear(yyyy - 30);
         document.getElementById('birthday').valueAsDate = defaultDate;
     });
+// 在DOMContentLoaded事件监听器内添加
+document.addEventListener('DOMContentLoaded', function() {
+    // 原有的日期范围设置
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getDate()).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    
+    // 初始化Flatpickr
+    flatpickr("#birthday", {
+        dateFormat: "Y-m-d",
+        minDate: "1900-01-01",
+        maxDate: today,
+        defaultDate: new Date(yyyy - 30, today.getMonth(), today.getDate()),
+        onChange: function(selectedDates, dateStr) {
+            document.getElementById('birthday-native').value = dateStr;
+        }
+    });
+
+    // 原有的其他代码保持不变
+});
+document.getElementById('calculateBtn').addEventListener('click', () => {
+    // 改为使用birthday-native的值
+    birthday = new Date(document.getElementById('birthday-native').value);
+    birthtime = document.getElementById('birthtime').value;
+    gender = document.getElementById('gender').value;
+    
+    if (!birthday || !gender || !birthtime) {
+        alert('Please fill all fields');
+        return;
+    }
+    document.getElementById('first').style.display = 'none';
+    document.getElementById('second').style.display = 'none';
+    document.getElementById('third').style.display = 'none';
+    document.getElementById('step').style.display = 'block';
+    document.getElementById('calculateBtn').style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'block';
+});
 
     // 原有脚本内容保持不变...
 
@@ -1050,6 +1112,7 @@
                 year = lunar.getYear(); // 农历年份
                 month = lunar.getMonth(); // 农历月份
                 day = lunar.getDay(); // 农历日期
+                console.log(year+month+day)
             } catch (error) {
                 alert('Invalid date format. Please try again.');
             }
@@ -1071,7 +1134,7 @@
             metalBar.style.width = elements.metal + '%';
             earthBar.style.width = elements.earth + '%';
             fireBar.style.width = elements.fire + '%';
-            
+        
             // 3. 根据五行相生相克确定命理类型
             return determineType(elements, gender);
         }
