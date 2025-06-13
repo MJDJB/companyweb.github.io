@@ -80,13 +80,13 @@
 }
 
 .yin-yang:before,
-.yin-yang:after {
+/* .yin-yang:after {
   content: '';
   position: absolute;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-}
+} */
 
 .yin-yang:before {
   background: var(--bg);
@@ -565,7 +565,7 @@
                 <input type="text" id="birthday" class="birthday-input" placeholder="Select date" readonly>
                 <input type="hidden" id="birthday-native" required>
             </div>
-            <span class="date-format-hint">Format: MM/DD/YYYY</span>
+            <!-- <span class="date-format-hint">Format: MM/DD/YYYY</span> -->
         </div>
         
                
@@ -585,6 +585,7 @@
             <option value="">Select a gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
+            <option value="female">Other</option>
           </select>
         </div>
 
@@ -678,8 +679,15 @@
           <ul class="cinnabar-benefits" id="cinnabar-benefits">
             <!-- Product benefits will appear here -->
           </ul>
-          <a href="#" class="btn-buy" id="buy-button">Order Now</a>
-          <p style="margin-top: 15px; font-size: 0.9em;">Limited to 30 pieces</p>
+          <div class="btn-description">
+    <p style="font-size: 1.1em; color: #e74c3c; margin-bottom: 15px;">✨ Tap into ancient Chinese mysticism</p>
+    <p style="margin-bottom: 20px;">Click the button to explore our authentic cinnabar bracelets —<br>each one chosen to align with your spirit.</p>
+</div>
+<a href="http://baidu.com.cn" class="btn-buy" id="buy-button">Order Now</a>
+<div class="youtube-shop" style="margin-top: 20px;">
+    <p>Or browse our <a href="http://youtube.com/@chinesematchmaker" style="color: #3498db; text-decoration: underline;">YouTube shop</a> for a piece that speaks to your soul.</p>
+</div>
+          <p style="margin-top: 15px; font-size: 0.9em;" id="limited-counter">Limited to <span id="remaining-count">150</span> pieces</p>
         </div>
     
         <button id="returnBtn">✦ Go Back ✦</button>
@@ -690,6 +698,32 @@
         //日期校验
     // 设置动态日期范围（添加在脚本最前面）
     document.addEventListener('DOMContentLoaded', function() {
+    // 动态限量计算
+    function updateRemainingCount() {
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const now = new Date();
+        
+        // 转换为欧美主要时区时间
+        const options = { timeZone: userTimeZone, hour12: false };
+        const localTime = now.toLocaleString('en-US', options);
+        
+        // 计算当日已过分钟数
+        const startOfDay = new Date(localTime);
+        startOfDay.setHours(0,0,0,0);
+        const diffMs = now - startOfDay;
+        const tenMinuteIntervals = Math.floor(diffMs / 600000);
+
+        // 计算剩余数量（150为基准，每分钟减少1）
+        let remaining = 150 - tenMinuteIntervals;
+        remaining = remaining > 0 ? remaining : 1;
+
+        // 更新显示
+        document.getElementById('remaining-count').textContent = remaining;
+    }
+
+    // 初始更新并设置定时器
+    updateRemainingCount();
+    setInterval(updateRemainingCount, 60000); // 每分钟检查一次
         const today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
         const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -725,12 +759,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 document.getElementById('calculateBtn').addEventListener('click', () => {
     // 改为使用birthday-native的值
-    birthday = new Date(document.getElementById('birthday-native').value);
+    birthday = new Date(document.getElementById('birthday').value);
     birthtime = document.getElementById('birthtime').value;
     gender = document.getElementById('gender').value;
     
-    if (!birthday || !gender || !birthtime) {
-        alert('Please fill all fields');
+    // 分字段验证逻辑
+    if (!birthday) {
+        alert('Please select your birth date');
+        document.getElementById('birthday').focus();
+        return;
+    }
+    
+    if (!birthtime) {
+        alert('Please choose your birth time');
+        document.getElementById('birthtime').parentElement.scrollIntoView();
+        return;
+    }
+    
+    if (!gender) {
+        alert('Please select your gender');
+        document.getElementById('gender').parentElement.style.backgroundColor = '#fff3cd';
+        setTimeout(() => {
+            document.getElementById('gender').parentElement.style.backgroundColor = '';
+        }, 2000);
         return;
     }
     document.getElementById('first').style.display = 'none';
@@ -993,22 +1044,22 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
         });
         
         // 在<script>标签内替换为以下代码
-        document.getElementById('calculateBtn').addEventListener('click', () => {
-            birthday = new Date(document.getElementById('birthday').value);
-            birthtime = new Date(document.getElementById('birthtime').value);
-            gender = document.getElementById('gender').value;
+        // document.getElementById('calculateBtn').addEventListener('click', () => {
+        //     birthday = new Date(document.getElementById('birthday').value);
+        //     birthtime = new Date(document.getElementById('birthtime').value);
+        //     gender = document.getElementById('gender').value;
             
-            if (!birthday || !gender || !birthtime) {
-                alert('Please fill all fields');
-                return;
-            }
-            document.getElementById('first').style.display = 'none';
-            document.getElementById('second').style.display = 'none';
-            document.getElementById('third').style.display = 'none';
-            document.getElementById('step').style.display = 'block';
-            document.getElementById('calculateBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'block';
-        });
+        //     if (!birthday || !gender || !birthtime) {
+        //         alert('Please fill all fields');
+        //         return;
+        //     }
+        //     document.getElementById('first').style.display = 'none';
+        //     document.getElementById('second').style.display = 'none';
+        //     document.getElementById('third').style.display = 'none';
+        //     document.getElementById('step').style.display = 'block';
+        //     document.getElementById('calculateBtn').style.display = 'none';
+        //     document.getElementById('nextBtn').style.display = 'block';
+        // });
 
         document.querySelectorAll(".option-card").forEach(card => {
             card.addEventListener("click", () => {
