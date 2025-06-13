@@ -539,7 +539,7 @@
 
     <div class="container">
       <header>
-        <div class="yin-yang"></div>
+        <div style="position: relative;left: 35px;top: 20px"><div class="yin-yang"></div></div>
         <!-- Add Bagua Symbol -->
         <div class="bagua">
           <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 100 100">
@@ -1093,7 +1093,7 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
     const destinyType = calculateDestinyType(birthday, gender, selectedTypeId);
     showResult(destinyType);
     
-  }, 5000); // 2秒后自动关闭
+  }, 3500); // 2秒后自动关闭
 });
 
 
