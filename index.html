@@ -564,7 +564,7 @@
             <label for="birthday">Date of Birth</label>
             <!-- 替换原来的input type="date"为以下结构 -->
             <div class="date-input-container">
-                <input type="text" id="birthday" class="birthday-input" placeholder="Select date" readonly>
+                <input type="text" id="birthday" class="birthday-input" placeholder="Select your birth date" readonly>
                 <input type="hidden" id="birthday-native" required>
             </div>
             <!-- <span class="date-format-hint">Format: MM/DD/YYYY</span> -->
@@ -734,9 +734,6 @@
         document.getElementById('birthday').max = `${yyyy}-${mm}-${dd}`;
         
         // 设置默认值为30年前
-        const defaultDate = new Date();
-        defaultDate.setFullYear(yyyy - 30);
-        document.getElementById('birthday').valueAsDate = defaultDate;
     });
 // 在DOMContentLoaded事件监听器内添加
 document.addEventListener('DOMContentLoaded', function() {
@@ -751,7 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dateFormat: "Y-m-d",
         minDate: "1900-01-01",
         maxDate: today,
-        defaultDate: new Date(yyyy - 30, today.getMonth(), today.getDate()),
+
         onChange: function(selectedDates, dateStr) {
             document.getElementById('birthday-native').value = dateStr;
         }
