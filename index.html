@@ -9,6 +9,126 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <title>Tianji Metaphysics - BaZi & Cinnabar Energy Reading</title>
     <style>
+        /* ===== 中国风弹出模态框 ===== */
+.china-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(250, 240, 230, 0.9);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.modal-content {
+  text-align: center;
+  max-width: 300px;
+}
+
+.bagua-wheel {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 25px;
+}
+
+.bagua-symbols {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--secondary);
+  border-radius: 50%;
+  animation: baguaRotate 10s linear infinite;
+}
+
+.bagua-symbols span {
+  position: absolute;
+  font-size: 24px;
+  color: var(--primary);
+}
+
+/* 八卦符号定位 */
+.bagua-symbols span:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%) translateY(-50%); }
+.bagua-symbols span:nth-child(2) { top: 25%; right: 15%; }
+.bagua-symbols span:nth-child(3) { top: 50%; right: 0; transform: translateX(50%) translateY(-50%); }
+.bagua-symbols span:nth-child(4) { bottom: 25%; right: 15%; }
+.bagua-symbols span:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%) translateY(50%); }
+.bagua-symbols span:nth-child(6) { bottom: 25%; left: 15%; }
+.bagua-symbols span:nth-child(7) { top: 50%; left: 0; transform: translateX(-50%) translateY(-50%); }
+.bagua-symbols span:nth-child(8) { top: 25%; left: 15%; }
+
+.taiji-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+}
+
+.yin-yang {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, var(--primary) 50%, var(--bg) 50%);
+  position: relative;
+  animation: taijiPulse 2.5s ease infinite;
+}
+
+.yin-yang:before,
+.yin-yang:after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.yin-yang:before {
+  background: var(--bg);
+  top: 15px;
+  left: 15px;
+}
+
+.yin-yang:after {
+  background: var(--primary);
+  bottom: 15px;
+  right: 15px;
+}
+
+.loading-text .title {
+  color: var(--primary);
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.loading-text .subtitle {
+  color: var(--text);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* 动画定义 */
+@keyframes baguaRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes taijiPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
         :root {
             --primary: #8B0000; /* 硃砂紅 */
             --secondary: #DAA520; /* 金色 */
@@ -901,22 +1021,31 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
             });
         });
 
-        document.getElementById("nextBtn").addEventListener("click", () => {
-            if (!selectedTypeId) {
-            alert("Please select the option that best describes you.");
-            return;
-            }
+       document.getElementById("nextBtn").addEventListener("click", function() {
+  if (!selectedTypeId) {
+    alert("Please select the option that best describes you.");
+    return;
+  }
 
-            // const typeData = DESTINY_DATA.types.find(t => t.id === selectedTypeId);
-            // if (typeData) {
-            // showResult(typeData);
-            // } else {
-            // alert("An error occurred. Please refresh and try again.");
-            // }
-            // 核心计算逻辑
-            const destinyType = calculateDestinyType(birthday, gender, selectedTypeId);
-            showResult(destinyType);
-        });
+  // 显示中国风弹出层
+  const modal = document.getElementById('china-modal');
+  modal.style.display = 'flex';
+  
+  // 禁用页面滚动
+  document.body.style.overflow = 'hidden';
+
+  // 2秒后自动关闭并继续流程
+  setTimeout(function() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // 执行原有计算逻辑
+    const destinyType = calculateDestinyType(birthday, gender, selectedTypeId);
+    showResult(destinyType);
+    
+  }, 2000); // 2秒后自动关闭
+});
+
 
         // 五行能量计算函数
         function calculateWood(year, month, selectedTypeId, birthtime) {
@@ -1139,5 +1268,27 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
             return determineType(elements, gender);
         }
     </script>
+    <!-- 中国风弹出式过渡层 -->
+<div id="china-modal" class="china-modal">
+    <div class="modal-content">
+      <!-- 八卦旋转盘 -->
+      <div class="bagua-wheel">
+        <div class="bagua-symbols">
+          <span>☰</span><span>☱</span><span>☲</span><span>☳</span>
+          <span>☴</span><span>☵</span><span>☶</span><span>☷</span>
+        </div>
+        <!-- 太极中心 -->
+        <div class="taiji-center">
+          <div class="yin-yang"></div>
+        </div>
+      </div>
+      <!-- 文字说明 -->
+      <div class="loading-text">
+        <p class="title">天机推演中...</p>
+        <p class="subtitle">八卦轮转 · 阴阳相生 · 命理显现</p>
+      </div>
+    </div>
+  </div>
+  
 </body>
 </html>
