@@ -616,7 +616,7 @@
                 </div>
             </div>
             <div class="option-card" data-type="grounding-protector">
-                <div class="icon">🔥</div>
+                <div class="icon">⚡</div>
                 <div class="text">
                 <strong>Short-tempered or overwhelmed</strong>
                 <p>You react quickly and burn out even faster.</p>
@@ -839,12 +839,8 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 {
                     id: "energy-booster",
                     name: "Energy Booster",
-                    trait: "Low Fire and Earth energy",
-                    personality:
-                    "Easily fatigued, mentally foggy, struggles with motivation and long-term planning.",
-                    zodiac: "Emotionally driven like Water signs (Pisces, Cancer, Scorpio)",
-                    explanation:
-                    "Your birth energy shows a deficiency in Fire and Earth elements, which are responsible for drive, structure, and grounded action. You may often feel drained, indecisive, or stuck in your thoughts. Strengthening your inner fire is key to reigniting your passion and reclaiming direction.",
+                    personality: "Easily fatigued, mentally foggy, struggles with motivation and long-term planning.",
+                    explanation: "You’ve been feeling drained and stuck in neutral—hard to get going and stay focused. This is your reminder to reignite your spark.",
                     product: {
                     name: "Red Cinnabar Power Bracelet",
                     material: "Natural Red Cinnabar + Energized Red Agate Beads",
@@ -864,12 +860,8 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 {
                     id: "calm-balancer",
                     name: "Calm Balancer",
-                    trait: "Excess Water and Metal energy",
-                    personality:
-                    "Highly sensitive, anxious, prone to overthinking and insomnia. Emotionally reactive and easily overwhelmed.",
-                    zodiac: "Like Air signs with emotional depth (Gemini, Libra, Aquarius)",
-                    explanation:
-                    "Your chart reveals overactive Water and Metal elements. This causes emotional turbulence, difficulty sleeping, and mental over-processing. You absorb energy from others too easily, and need grounding tools to stabilize your emotions.",
+                    personality: "Highly sensitive, anxious, prone to overthinking and insomnia. Emotionally reactive and easily overwhelmed.",
+                    explanation: "When your mind races and your heart never rests, you need a tool to shield and soothe your energy.",
                     product: {
                     name: "Cinnabar & Obsidian Peace Pendant",
                     material: "Polished Black Obsidian + Red Cinnabar Core",
@@ -877,7 +869,7 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                     benefits: [
                         "Shields your aura from negative emotional energy",
                         "Promotes inner peace and deeper sleep",
-                        "Balances the heart-mind connection",
+                        "Balances the heart‑mind connection",
                         "Cinnabar calms nervous energy and overactivity",
                         "Obsidian clears absorbed emotional toxins"
                     ],
@@ -889,12 +881,8 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 {
                     id: "action-igniter",
                     name: "Action Igniter",
-                    trait: "Strong Wood, deficient Fire",
-                    personality:
-                    "Creative thinker, full of ideas but lacks follow-through. Easily distracted, struggles with self-discipline.",
-                    zodiac: "Like Fire signs in shadow (Leo, Aries, Sagittarius)",
-                    explanation:
-                    "You have strong generative (Wood) energy, but weak transformation (Fire) energy. This means you're constantly inspired, but rarely able to convert plans into results. Restoring your inner fire is crucial for execution and forward motion.",
+                    personality: "Creative thinker, full of ideas but lacks follow‑through. Easily distracted, struggles with self‑discipline.",
+                    explanation: "Dreaming up plans is your strong suit—but turning them into reality has been a challenge. It’s time to bridge that gap.",
                     product: {
                     name: "Cinnabar & Brass Focus Beads",
                     material: "Real Cinnabar, Antiqued Brass + Action Sigils",
@@ -904,7 +892,7 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                         "Channels mental energy into physical action",
                         "Worn by entrepreneurs for clarity and momentum",
                         "Brass amplifies solar (yang) fire intention",
-                        "Cinnabar protects against mental self-sabotage"
+                        "Cinnabar protects against mental self‑sabotage"
                     ],
                     icon: "⚡",
                     callToAction: "Boost My Action Energy",
@@ -914,12 +902,8 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 {
                     id: "grounding-protector",
                     name: "Grounding Protector",
-                    trait: "Excess Fire and Earth energy",
-                    personality:
-                    "Irritable, quick-tempered, often feels mentally overloaded or spiritually agitated. Tends to burn out quickly.",
-                    zodiac: "Fiery and dominant like Aries, Taurus, or Capricorn",
-                    explanation:
-                    "You possess powerful Fire and Earth energy — but in excess, it can cause emotional volatility, short temper, and energetic blockages. You need purification and clarity to protect your spiritual space and calm inner heat.",
+                    personality: "Irritable, quick‑tempered, often feels mentally overloaded or spiritually agitated. Tends to burn out quickly.",
+                    explanation: "When stress spikes and patience runs thin, you need a protective anchor to calm the storm.",
                     product: {
                     name: "White Quartz & Cinnabar Protection Ring",
                     material: "Polished White Quartz + Sacred Cinnabar Core",
@@ -927,9 +911,9 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                     benefits: [
                         "Reduces irritability and restores mental calm",
                         "Blocks toxic emotional energies and overexertion",
-                        "Enhances spiritual clarity and self-composure",
+                        "Enhances spiritual clarity and self‑composure",
                         "White Quartz purifies fire overflows and mental static",
-                        "Cinnabar provides grounding in high-pressure environments"
+                        "Cinnabar provides grounding in high‑pressure environments"
                     ],
                     icon: "🌍",
                     callToAction: "Restore My Inner Peace",
@@ -1165,9 +1149,9 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
             const types = DESTINY_DATA.types;
 
             // 用户已手动选择心境类型，直接返回
-            if (selectedTypeId && types.some(type => type.id === selectedTypeId)) {
-                return types.find(type => type.id === selectedTypeId);
-            }
+            // if (selectedTypeId && types.some(type => type.id === selectedTypeId)) {
+            //     return types.find(type => type.id === selectedTypeId);
+            // }
 
             const scores = {
                 wood: elements.wood,
@@ -1193,21 +1177,74 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 scores.metal += 4;
                 scores.fire -= 4; // 晚上火衰
             }
+            const woodBar = document.getElementById('wood-bar');
+            const waterBar = document.getElementById('water-bar');
+            const metalBar = document.getElementById('metal-bar');
+            const earthBar = document.getElementById('earth-bar');
+            const fireBar = document.getElementById('fire-bar');
+            woodBar.style.width = scores.wood + '%';
+            waterBar.style.width = scores.water + '%';
+            metalBar.style.width = scores.metal + '%';
+            earthBar.style.width = scores.earth + '%';
+            fireBar.style.width = scores.fire + '%';
 
             // 命理推理逻辑
-            if (scores.fire < 50 && scores.earth < 50) {
-                return types.find(type => type.id === "energy-booster");
-            } else if (scores.metal > 70 && scores.water > 70) {
-                return types.find(type => type.id === "calm-balancer");
-            } else if (scores.wood > 65 && scores.fire < 60) {
-                return types.find(type => type.id === "action-igniter");
-            } else {
-                return types.find(type => type.id === "grounding-protector");
+            // if (scores.fire < 50 && scores.earth < 50) {
+            //     return types.find(type => type.id === "energy-booster");
+            // } else if (scores.metal > 70 && scores.water > 70) {
+            //     return types.find(type => type.id === "calm-balancer");
+            // } else if (scores.wood > 65 && scores.fire < 60) {
+            //     return types.find(type => type.id === "action-igniter");
+            // } else {
+            //     return types.find(type => type.id === "grounding-protector");
+            // }
+            let result = {};
+            debugger;
+            if (selectedTypeId === "energy-booster") {
+                result = types.find(type => type.id === "energy-booster");
+            } else if (selectedTypeId === "calm-balancer") {
+                result = types.find(type => type.id === "calm-balancer");
+            } else if (selectedTypeId === "action-igniter") {
+                result = types.find(type => type.id === "action-igniter");
+            } else if (selectedTypeId === "grounding-protector") {
+                result = types.find(type => type.id === "grounding-protector");
             }
+            result.trait = calculateString(scores);
+            return result;
+        }
+        function calculateString(scores) {
+        // Convert to array of [element, value]
+        const entries = Object.entries(scores);
+        
+        // Sort descending by value
+        entries.sort((a, b) => b[1] - a[1]);
+        
+        const maxVal = entries[0][1];
+        const minVal = entries[entries.length - 1][1];
+        
+        // Gather all elements with max and min values
+        const strongest = entries.filter(([, v]) => v === maxVal).map(([k]) => k);
+        const weakest = entries.filter(([, v]) => v === minVal).map(([k]) => k);
+        
+        // Helper to join list in English
+        const joinList = (arr) => {
+            if (arr.length === 1) return arr[0];
+            if (arr.length === 2) return `${arr[0]} and ${arr[1]}`;
+            return `${arr.slice(0, -1).join(', ')}, and ${arr[arr.length - 1]}`;
+        };
+        
+        const strongText = joinList(strongest);
+        const weakText = joinList(weakest);
+        
+        if (maxVal === minVal) {
+            return `All elements are balanced at a score of ${maxVal}.`;
+        }
+        return `You are richest in ${strongText}, and most lacking in ${weakText}.`;
         }
 
         // 结果展示函数// Enhanced result rendering function
         function showResult(type) {
+            debugger;
             // 基本信息展示
             document.getElementById('destiny-type').textContent = type.name;
 
@@ -1216,8 +1253,8 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 <p><strong>🔮 Type Explanation:</strong><br> ${type.explanation}</p>
                 <p><strong>🧠 Personality Traits:</strong> ${type.personality}</p>
                 <p><strong>♻️ Elemental Insight:</strong> ${type.trait}</p>
-                <p><strong>✨ Compatible Zodiac:</strong> ${type.zodiac}</p>
             `;
+            // <p><strong>✨ Compatible Zodiac:</strong> ${type.zodiac}</p>
 
             // 产品部分构建
             const product = type.product;
@@ -1303,19 +1340,9 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
                 metal: calculateMetal(year, month, selectedTypeId),
                 water: calculateWater(month, day, selectedTypeId)
             };
-            const woodBar = document.getElementById('wood-bar');
-            const waterBar = document.getElementById('water-bar');
-            const metalBar = document.getElementById('metal-bar');
-            const earthBar = document.getElementById('earth-bar');
-            const fireBar = document.getElementById('fire-bar');
-            woodBar.style.width = elements.wood + '%';
-            waterBar.style.width = elements.water + '%';
-            metalBar.style.width = elements.metal + '%';
-            earthBar.style.width = elements.earth + '%';
-            fireBar.style.width = elements.fire + '%';
         
             // 3. 根据五行相生相克确定命理类型
-            return determineType(elements, gender);
+            return determineType(elements, gender, selectedTypeId);
         }
     </script>
     <!-- 中国风弹出式过渡层 -->
@@ -1339,6 +1366,51 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
       </div>
     </div>
   </div>
-  
+<!-- PowerX外贸版版权栏 -->
+<footer style="
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #f5f7fa;
+  padding: 2.5rem 0;
+  border-top: 1px solid #e5e7eb;
+">
+  <div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  ">
+
+
+
+    <!-- 多语言版权声明 -->
+    <p style="
+      color: #4b5563;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 0.5rem 0;
+    ">
+      © <span id="copyright-year">2025</span> PowerX Global Trading Co., Ltd.
+      <span aria-hidden="true" style="color: #d1d5db;">|</span>
+      <span style="white-space: nowrap;">All Rights Reserved</span>
+    </p>
+
+
+    <!-- 外贸合规声明 -->
+    <p style="
+      color: #6b7280;
+      font-size: 0.75rem;
+      margin-top: 1.5rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    ">
+      Products may be subject to export controls. By using this site, you agree to comply with all applicable international trade laws.
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
+</footer>  
 </body>
 </html>
