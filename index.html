@@ -9,6 +9,36 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <title>Tianji Metaphysics</title>
     <style>
+        /* 产品免责声明专属样式 */
+.product-disclaimer {
+  margin: 18px 0;
+  padding: 12px 15px;
+  background: rgba(255, 240, 240, 0.3);
+  border: 1px dashed rgba(218, 165, 32, 0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.disclaimer-icon {
+  color: #d64c35;
+  font-weight: bold;
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.disclaimer-content {
+  color: #666;
+  flex: 1;
+}
+
+/* 确保不影响公司声明样式 */
+footer, .company-disclaimer {
+  /* 原有公司声明样式将完全不受影响 */
+}
+
         /* ===== 中国风弹出模态框 ===== */
 .china-modal {
   position: fixed;
@@ -676,11 +706,14 @@
         <div class="cinnabar-card">
           <div class="cinnabar-icon" id="cinnabar-icon">🔴</div>
           <h3 class="cinnabar-name" id="cinnabar-name">Recommended Cinnabar Talisman</h3>
-          <p>Crafted based on your elemental profile</p>
+          <p>Personalized recommendation based on your elemental profile</p>
           <div class="cinnabar-price" id="cinnabar-price">$27.00</div>
           <ul class="cinnabar-benefits" id="cinnabar-benefits">
             <!-- Product benefits will appear here -->
           </ul>
+          <div class="product-disclaimer">
+            <span class="disclaimer-content">⚠️ This product is based on cultural symbolism and spiritual beliefs. It is not intended to diagnose, treat, cure, or prevent any disease.</span>
+          </div>
           <div class="btn-description">
     <p style="font-size: 1.1em; color: #e74c3c; margin-bottom: 15px;">✨ Tap into ancient Chinese mysticism</p>
     <p style="margin-bottom: 20px;">Discover our authentic Energy Bead Bracelets — click the button below!<br>each one chosen to align with your spirit.</p>
